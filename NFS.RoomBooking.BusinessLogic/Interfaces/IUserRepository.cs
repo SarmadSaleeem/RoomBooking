@@ -6,4 +6,5 @@ namespace NFS.RoomBooking.BusinessLogic.Interfaces;
 public interface IUserRepository
 {
     Task<IdentityUser?> CreateUser(CreateUserDto createUserDto);
+    Task<IdentityResult?> AssignDefaultRoleToUser(IdentityUser identityUser);
 }

@@ -33,6 +33,7 @@ public class UserController(IUserProfileRepository userProfileRepository, IUserR
         return Ok();
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("CreateUser")]
     public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
@@ -41,6 +42,9 @@ public class UserController(IUserProfileRepository userProfileRepository, IUserR
         IdentityUser? identityUser = await userRepository.CreateUser(createUserDto);
 
         if (identityUser is null) return BadRequest();
+
+        IdentityResult? identityResult = await userRepository.AssignDefaultRoleToUser(identityUser);
+        if (identityResult is { Succeeded: false }) return BadRequest();;
         
         userProfileRepository.CreateUserProfile(new CreateUserProfileDto
         {

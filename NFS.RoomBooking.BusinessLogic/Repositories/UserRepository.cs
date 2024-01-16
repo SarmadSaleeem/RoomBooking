@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using NFS.RoomBooking.BusinessLogic.DTO.User;
 using NFS.RoomBooking.BusinessLogic.Interfaces;
+using NFS.RoomBooking.Domain.Constants;
 
 namespace NFS.RoomBooking.BusinessLogic.Repositories;
 
@@ -18,4 +19,7 @@ public class UserRepository(UserManager<IdentityUser> userManager) : IUserReposi
         
         return await userManager.FindByEmailAsync(createUserDto.Email);
     }
+
+    public async Task<IdentityResult?> AssignDefaultRoleToUser(IdentityUser identityUser) => 
+        await userManager.AddToRoleAsync(identityUser, AppRoles.User);
 }
