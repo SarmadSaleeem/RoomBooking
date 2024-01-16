@@ -41,6 +41,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 
@@ -54,7 +55,7 @@ using (var serviceScope = app.Services.CreateScope())
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapIdentityApi<UserProfile>();
+app.MapIdentityApi<IdentityUser>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
