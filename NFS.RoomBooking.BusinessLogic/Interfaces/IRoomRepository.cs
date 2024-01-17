@@ -1,4 +1,3 @@
-using NFS.RoomBooking.BusinessLogic.DTO.Booking;
 using NFS.RoomBooking.BusinessLogic.DTO.Room;
 namespace NFS.RoomBooking.BusinessLogic.Interfaces;
 

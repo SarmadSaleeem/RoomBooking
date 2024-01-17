@@ -6,7 +6,7 @@ using NFS.RoomBooking.Domain.Constants;
 
 namespace NFS.RoomBooking.BusinessLogic.ApplicationDbContext;
 
-public class AppDbContext : IdentityDbContext<IdentityUser>
+public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -18,7 +18,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
         base.OnModelCreating(builder);
 
         // Change the table names for Identity entities
-        builder.Entity<IdentityUser>().ToTable("Users");
+        builder.Entity<ApplicationUser>().ToTable("Users");
         builder.Entity<IdentityRole>()
             .ToTable("Roles")
             .HasData(new List<IdentityRole>
@@ -36,7 +36,4 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Room> Rooms { get; set; }
-    public DbSet<UserProfile> UserProfiles { get; set; }
-    
-    
 }

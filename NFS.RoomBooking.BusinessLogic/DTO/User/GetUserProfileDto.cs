@@ -1,4 +1,4 @@
-namespace NFS.RoomBooking.BusinessLogic.DTO.UserProfile;
+namespace NFS.RoomBooking.BusinessLogic.DTO.User;
 
 public class GetUserProfileDto
 {

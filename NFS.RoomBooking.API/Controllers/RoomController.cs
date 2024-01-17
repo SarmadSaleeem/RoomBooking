@@ -1,13 +1,10 @@
-
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NFS.RoomBooking.BusinessLogic.DTO.Room;
 using NFS.RoomBooking.BusinessLogic.Interfaces;
-using NFS.RoomBooking.Domain.Constants;
 
 namespace NFS.RoomBooking.API.Controllers;
 
-[Authorize(Roles=$"{AppRoles.Administrator},{AppRoles.User}")]
+// [Authorize(Roles=$"{AppRoles.Administrator},{AppRoles.User}")]
 [ApiController]
 [Route("api/v1/[controller]")]
 public class RoomController(IRoomRepository roomRepository) : ControllerBase

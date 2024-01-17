@@ -1,6 +1,4 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using NFS.RoomBooking.Domain.Enums;
 
 namespace NFS.RoomBooking.BusinessLogic.DTO.User;
 
