@@ -22,7 +22,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("NFSRoomBooking"), 
-        b=> b.MigrationsAssembly("NFS.RoomBooking.API"));
+        b=> b.MigrationsAssembly("Test.RoomBooking.API"));
 });
 
 builder.Services.Configure<IdentityOptions>(options =>

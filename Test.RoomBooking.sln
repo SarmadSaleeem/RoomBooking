@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFS.RoomBooking.API", "NFS.RoomBooking.API\NFS.RoomBooking.API.csproj", "{087B595A-1717-4E7A-8F44-82DE9A458EFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.RoomBooking.API", "Test.RoomBooking.API\Test.RoomBooking.API.csproj", "{087B595A-1717-4E7A-8F44-82DE9A458EFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFS.RoomBooking.Domain", "NFS.RoomBooking.Domain\NFS.RoomBooking.Domain.csproj", "{FFD97AEB-C851-4433-8C61-A2E3D7A79F4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.RoomBooking.Domain", "Test.RoomBooking.Domain\Test.RoomBooking.Domain.csproj", "{FFD97AEB-C851-4433-8C61-A2E3D7A79F4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFS.RoomBooking.BusinessLogic", "NFS.RoomBooking.BusinessLogic\NFS.RoomBooking.BusinessLogic.csproj", "{7980B553-011C-40F9-A468-91B31EBA5C51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.RoomBooking.BusinessLogic", "Test.RoomBooking.BusinessLogic\Test.RoomBooking.BusinessLogic.csproj", "{7980B553-011C-40F9-A468-91B31EBA5C51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFS.RoomBooking.Test", "NFS.RoomBooking.Test\NFS.RoomBooking.Test.csproj", "{D3D44FF8-0027-44D1-9BBE-FB86AAFB5DA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.RoomBooking.Test", "Test.RoomBooking.Test\Test.RoomBooking.Test.csproj", "{D3D44FF8-0027-44D1-9BBE-FB86AAFB5DA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

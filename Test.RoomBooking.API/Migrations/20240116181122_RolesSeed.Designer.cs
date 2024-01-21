@@ -243,7 +243,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -274,7 +274,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Room", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Room", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -299,7 +299,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.UserProfile", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.UserProfile", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -377,15 +377,15 @@ namespace NFS.RoomBooking.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
                 {
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.Room", "Room")
+                    b.HasOne("Test.RoomBooking.Domain.Classes.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.UserProfile", "UserProfile")
+                    b.HasOne("Test.RoomBooking.Domain.Classes.UserProfile", "UserProfile")
                         .WithMany()
                         .HasForeignKey("UserProfileId");
 
@@ -394,7 +394,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.Navigation("UserProfile");
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.UserProfile", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.UserProfile", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

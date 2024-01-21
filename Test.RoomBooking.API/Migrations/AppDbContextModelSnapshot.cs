@@ -175,7 +175,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.ApplicationUser", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -251,7 +251,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -279,7 +279,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Room", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Room", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -315,7 +315,7 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,7 +324,7 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,7 +339,7 @@ namespace NFS.RoomBooking.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,22 +348,22 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
                 {
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NFS.RoomBooking.Domain.Classes.Room", "Room")
+                    b.HasOne("Test.RoomBooking.Domain.Classes.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)

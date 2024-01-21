@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>false</InvariantGlobalization>
+        <RootNamespace>NFS.RoomBooking.API</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NFS.RoomBooking.BusinessLogic\NFS.RoomBooking.BusinessLogic.csproj" />
+      <ProjectReference Include="..\Test.RoomBooking.BusinessLogic\Test.RoomBooking.BusinessLogic.csproj" />
     </ItemGroup>
 
 </Project>
