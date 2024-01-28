@@ -25,7 +25,14 @@ public class BookingController(IBookingRepository bookingRepository) : Controlle
     [AllowAnonymous]
     [HttpPost]
     [Route("AddBooking")]
-    public Task AddBooking(CreateBookingDto newBooking) => bookingRepository.Add(newBooking);
+    public async Task<IActionResult> AddBooking(CreateBookingDto newBooking)
+    {
+        var result = await bookingRepository.Add(newBooking);
+        if (result)
+            return Ok();
+
+        return BadRequest();
+    }
 
     [Authorize(Roles = $"{AppRoles.Administrator},{AppRoles.Reception},{AppRoles.User}")]
     [HttpPost]
@@ -34,6 +41,6 @@ public class BookingController(IBookingRepository bookingRepository) : Controlle
 
     [AllowAnonymous]
     [HttpGet]
-    [Route("GetByUserName")]
-    public IActionResult GetByUserName(string name) => new JsonResult(bookingRepository.GetByUserName(name));
+    [Route("GetBookingsByUserName")]
+    public IActionResult GetBookingsByUserName(string userName) => new JsonResult(bookingRepository.GetBookingsByUserName(userName));
 }

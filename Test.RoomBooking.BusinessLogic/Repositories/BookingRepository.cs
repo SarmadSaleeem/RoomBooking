@@ -38,11 +38,11 @@ public class BookingRepository(AppDbContext dbContext) : IBookingRepository
         })
         .FirstOrDefault(booking => booking.Id.Equals(id));
 
-    public List<GetBookingDto?> GetByUserName(string name) => dbContext.Bookings
+    public List<GetBookingDto?> GetBookingsByUserName(string userName) => dbContext.Bookings
         .AsNoTracking()
         .Include(x => x.ApplicationUser)
         .Include(x => x.Room)
-        .Where(user=> user.ApplicationUser.FirstName.ToLower().Equals(name.ToLower()))
+        .Where(user=> user.ApplicationUser.UserName!.Equals(userName))
         .Select(booking => new GetBookingDto()
         {
             Id = booking.Id,
@@ -96,7 +96,7 @@ public class BookingRepository(AppDbContext dbContext) : IBookingRepository
         })
         .ToList();
 
-    public async Task Add(CreateBookingDto value)
+    public async Task<bool> Add(CreateBookingDto value)
     {
         await dbContext.Bookings.AddAsync(new Booking
         {
@@ -107,6 +107,7 @@ public class BookingRepository(AppDbContext dbContext) : IBookingRepository
             RoomId = value.RoomId
         });
         await dbContext.SaveChangesAsync();
+        return true;
 
     }
 

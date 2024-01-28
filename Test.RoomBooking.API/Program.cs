@@ -37,6 +37,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.Zero;
+    options.Lockout.MaxFailedAccessAttempts = 100;
 });
 
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>()

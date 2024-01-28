@@ -8,6 +8,7 @@ public interface IUserRepository
 {
     Task<ApplicationUser?> CreateUser(CreateUserDto createUserDto);
     Task<IdentityResult?> AssignDefaultRoleToUser(ApplicationUser identityUser);
-    GetUserProfileDto? GetApplicationUserDto(string id);
+    GetUserProfileDto? GetApplicationUserDtoById(string id);
     List<GetUserProfileDto>? GetAllApplicationUserDto();
+    GetUserProfileDto? GetUserProfileDtoByEmail(string email);
 }

@@ -5,10 +5,17 @@ using Selenium.DefaultWaitHelpers;
 
 namespace NFS.RoomBooking.Test;
 
-public class UITest : IAsyncLifetime
+public class UITest
 {
-    private readonly IWebDriver _webDriver = new ChromeDriver("c:\\Drivers");
+    private readonly IWebDriver _webDriver;
 
+    public UITest()
+    {
+        _webDriver = new ChromeDriver("c:\\drivers");
+        _webDriver.Manage().Window.Maximize();
+        _webDriver.Navigate().GoToUrl("https://proton.me/");
+    }
+    
     [Fact]
     public void Login()
     {
@@ -24,15 +31,17 @@ public class UITest : IAsyncLifetime
         passwordElement.Click();
         passwordElement.SendKeys("asd@12345");
 
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
         //If partial match => "[class^='button w-full button-large button-solid-norm']
         IWebElement signinElement = _webDriver.FindElement(By.CssSelector("button.w-full.button-large.button-solid-norm.mt-6"));
         signinElement.Click();
+
+        IWebElement compostButton = _webDriver.WaitUntil(ExpectedConditionsSearchContext.ElementToBeClickable(
+            By.XPath("//button[@data-testid='sidebar:compose']")));
         
-        IWebElement composeEmailButton = _webDriver.FindElement(By.XPath("//button[@data-testid='sidebar:compose']"));
+        Assert.True(compostButton is not null);
         
-        Assert.True(composeEmailButton is not null);
+        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        _webDriver.Quit();
     }
 
     [Fact]
@@ -81,24 +90,18 @@ public class UITest : IAsyncLifetime
         IWebElement sendEmailButton = _webDriver.FindElement(By.XPath("//button[@data-testid='composer:send-button']"));
         sendEmailButton.Click();
         
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-        IWebElement notificationElement = _webDriver.FindElement(By.XPath("//span[@class='notification__content']"));
+        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        // IWebElement notificationElement = _webDriver.FindElement(By.XPath("//span[@class='notification__content']"));
+
+        IWebElement notif =
+            driverWait.Until(
+                ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//span[@class='notification__content']")));
+
+        driverWait.Until(ExpectedConditionsSearchContext.TextToBePresentInElement(notif, "Message sent."));
+
+        Assert.Contains("Message sent.", notif.Text);
         
-        Assert.Contains("Sending message...", notificationElement.Text);
-
+        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         _webDriver.Quit();
-    }
-
-    public Task InitializeAsync()
-    {
-        _webDriver.Manage().Window.Maximize();
-        _webDriver.Navigate().GoToUrl("https://proton.me/");
-        return Task.CompletedTask;
-    }
-
-    public Task DisposeAsync()
-    {
-        _webDriver.Quit();
-        return Task.CompletedTask;
     }
 }

@@ -3,7 +3,6 @@ using Moq;
 using NFS.RoomBooking.API.Controllers;
 using NFS.RoomBooking.BusinessLogic.DTO.Room;
 using NFS.RoomBooking.BusinessLogic.Interfaces;
-using NFS.RoomBooking.BusinessLogic.Repositories;
 
 namespace NFS.RoomBooking.Test;
 

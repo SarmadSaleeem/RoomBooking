@@ -5,8 +5,8 @@ namespace NFS.RoomBooking.BusinessLogic.Interfaces;
 public  interface IBookingRepository
 {
     GetBookingDto? GetById(string id);
-    List<GetBookingDto?> GetByUserName(string name);
+    List<GetBookingDto?> GetBookingsByUserName(string name);
     List<GetBookingDto>? GetAll();
-    Task Add(CreateBookingDto value);
+    Task<bool> Add(CreateBookingDto value);
     Task Update(UpdateBookingDto value);
 }
