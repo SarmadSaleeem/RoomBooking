@@ -154,6 +154,13 @@ namespace NFS.RoomBooking.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "db2053d7-9294-4f22-ab94-2fe2c4514261",
+                            RoleId = "d0e76862-5de0-4ac4-864c-9af18b7071ab"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -175,7 +182,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.ApplicationUser", b =>
+            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -198,7 +205,7 @@ namespace NFS.RoomBooking.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -249,9 +256,28 @@ namespace NFS.RoomBooking.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "db2053d7-9294-4f22-ab94-2fe2c4514261",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ea30914b-bf3e-4da5-88c4-262fc995538e",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Super",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKs/yEGXTt5QSpFD42iuZjy4rkXqiUtlM/5CnIIJeiYEyHuP+0Qf5LWxjwQi4j+RFg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4cc952af-3427-4d36-9175-f0891785e498",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
-            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -279,7 +305,7 @@ namespace NFS.RoomBooking.API.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Room", b =>
+            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Room", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -296,7 +322,6 @@ namespace NFS.RoomBooking.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -315,7 +340,7 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,7 +349,7 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,7 +364,7 @@ namespace NFS.RoomBooking.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,22 +373,22 @@ namespace NFS.RoomBooking.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", null)
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Test.RoomBooking.Domain.Classes.Booking", b =>
+            modelBuilder.Entity("NFS.RoomBooking.Domain.Classes.Booking", b =>
                 {
-                    b.HasOne("Test.RoomBooking.Domain.Classes.ApplicationUser", "ApplicationUser")
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Test.RoomBooking.Domain.Classes.Room", "Room")
+                    b.HasOne("NFS.RoomBooking.Domain.Classes.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
