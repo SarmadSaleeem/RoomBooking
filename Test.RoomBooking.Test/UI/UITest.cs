@@ -1,35 +1,52 @@
+using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using Selenium.DefaultWaitHelpers;
 
 namespace NFS.RoomBooking.Test;
 
-public class UITest
+public class UiTest
 {
-    private readonly IWebDriver _webDriver;
+    private readonly IConfiguration _configuration;
+    private readonly OpenQA.Selenium.Chrome.ChromeDriver _webDriver;
 
-    public UITest()
+    public UiTest()
     {
-        _webDriver = new ChromeDriver("c:\\drivers");
-        _webDriver.Manage().Window.Maximize();
-        _webDriver.Navigate().GoToUrl("https://proton.me/");
+        _configuration = new ConfigurationBuilder().AddJsonFile("configuration.json").Build();
+        _webDriver = new ChromeDriver(_configuration["DriverPath"]);
+        
+        if (Convert.ToBoolean(_configuration["MaxWindow"]))
+            _webDriver.Manage().Window.Maximize();
+        
+        _webDriver.Navigate().GoToUrl(_configuration["WebSiteUrl"]);
     }
     
     [Fact]
     public void Login()
     {
+        LoginTest(email:_configuration["Credentials:userName"], password:_configuration["Credentials:password"]);
+        _webDriver.Quit();
+    }
+
+    [Fact]
+    public void SendEmail()
+    {
+        LoginTest(email:_configuration["Credentials:userName"], password:_configuration["Credentials:password"]);
+        SendEmailTest();
+    }
+
+
+    private void LoginTest(string? email, string? password)
+    {
         IWebElement toSigninPageElement = _webDriver.FindElement(By.XPath("//a[@href='https://account.proton.me/login']"));
         toSigninPageElement.Click();
 
-        WebDriverWait driverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-
-        IWebElement emailElement = driverWait.Until(ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//input[@id='username']")));
-        emailElement.SendKeys("Alina123659878");
+        IWebElement emailElement = _webDriver.WaitUntil(ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//input[@id='username']")));
+        emailElement.SendKeys(email);
 
         IWebElement passwordElement = _webDriver.FindElement(By.Id("password"));
         passwordElement.Click();
-        passwordElement.SendKeys("asd@12345");
+        passwordElement.SendKeys(password);
 
         //If partial match => "[class^='button w-full button-large button-solid-norm']
         IWebElement signinElement = _webDriver.FindElement(By.CssSelector("button.w-full.button-large.button-solid-norm.mt-6"));
@@ -39,40 +56,18 @@ public class UITest
             By.XPath("//button[@data-testid='sidebar:compose']")));
         
         Assert.True(compostButton is not null);
-        
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-        _webDriver.Quit();
     }
 
-    [Fact]
-    public void SendEmail()
+    private void SendEmailTest()
     {
-        IWebElement toSigninPageElement = _webDriver.FindElement(By.XPath("//a[@href='https://account.proton.me/login']"));
-        toSigninPageElement.Click();
         
-        WebDriverWait driverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-        
-        IWebElement emailElement = driverWait.Until(ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//input[@id='username']")));
-        emailElement.SendKeys("Alina123659878");
-        
-        IWebElement passwordElement = _webDriver.FindElement(By.Id("password"));
-        passwordElement.Click();
-        passwordElement.SendKeys("asd@12345");
-        
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-        
-        //If partial match => "[class^='button w-full button-large button-solid-norm']
-        IWebElement signinElement = _webDriver.FindElement(By.CssSelector("button.w-full.button-large.button-solid-norm.mt-6"));
-        signinElement.Click();
-
         IWebElement composeEmailButton = _webDriver.FindElement(By.XPath("//button[@data-testid='sidebar:compose']"));
         composeEmailButton.Click();
-        
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-        IWebElement receiverEmailElement = _webDriver.FindElement(By.XPath("//input[@data-testid='composer:to']"));
+        IWebElement receiverEmailElement = _webDriver.WaitUntil(
+            ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//input[@data-testid='composer:to']")));
         receiverEmailElement.Click();
-        receiverEmailElement.SendKeys("sarmadawan81@gmail.com;");
+        receiverEmailElement.SendKeys(_configuration["ReceiverEmail"]);
         
         IWebElement subjectElement = _webDriver.FindElement(By.XPath("//input[@data-testid='composer:subject']"));
         subjectElement.Click();
@@ -89,19 +84,13 @@ public class UITest
 
         IWebElement sendEmailButton = _webDriver.FindElement(By.XPath("//button[@data-testid='composer:send-button']"));
         sendEmailButton.Click();
-        
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-        // IWebElement notificationElement = _webDriver.FindElement(By.XPath("//span[@class='notification__content']"));
 
-        IWebElement notif =
-            driverWait.Until(
-                ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//span[@class='notification__content']")));
+        IWebElement notificationElement =
+            _webDriver.WaitUntil(ExpectedConditionsSearchContext.ElementIsVisible(By.XPath("//span[@class='notification__content']")));
 
-        driverWait.Until(ExpectedConditionsSearchContext.TextToBePresentInElement(notif, "Message sent."));
+        _webDriver.WaitUntil(ExpectedConditionsSearchContext.TextToBePresentInElement(notificationElement, "Message sent."));
 
-        Assert.Contains("Message sent.", notif.Text);
-        
-        _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        Assert.Contains("Message sent.", notificationElement.Text);
         _webDriver.Quit();
     }
 }
