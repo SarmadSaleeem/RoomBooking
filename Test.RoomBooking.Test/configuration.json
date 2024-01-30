@@ -1,0 +1,11 @@
+{
+  "Credentials" : {
+    "userName": "Alina123659878",
+    "password": "asd@12345"
+  },
+  
+  "MaxWindow": true,
+  "DriverPath" : "c:\\drivers",
+  "WebSiteUrl" : "https://proton.me/",
+  "ReceiverEmail": "sarmadawan81@gmail.com;"
+}
